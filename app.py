@@ -66,11 +66,6 @@ def main_route():
     return render_template("index.html")
 
 
-@app.route("/ping")
-def ping():
-    return "pong"
-
-
 @app.route("/api")
 def api_route():
     return "main api route. docs? no html. json"
