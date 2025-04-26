@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+    index - shl
+{% endblock %}
+
+{% block content %}
+    <h1 class="colored">shl</h1>
+    <p>shl - an easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
+
+    <h2>Try it</h2>
+    <p>Quickly generate a short link by entering just the URL. Or, if you want to remember it, set a custom ID.</p>
+
+    <form action="/api/create">
+        <label for="search_query">Enter URL</label>
+        <input type="url" id="link_redirect" name="link_redirect" placeholder="https://dev64.xyz" required="">
+
+        <label for="search_query">Enter custom ID (optional)</label>
+        <input type="text" id="link_id" name="link_id" placeholder="website">
+        
+        <button type="submit">Generate</button>
+    </form>
+
+    <h2>Find a shl</h2>
+    <p>Do you remember the ID of the link? Enter it here, and find details about it such as creation date, and where it redirects to.</p>
+
+    <form action="/api/get">
+        <label for="search_query">Enter shl ID</label>
+        
+        <input type="text" id="link_id" name="link_id" placeholder="website" required="">
+        
+        <button type="submit">Search</button>
+    </form>
+{% endblock %}
