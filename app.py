@@ -129,7 +129,7 @@ def redirect_route(link_id):
     shl_data = get_link(link_id)
 
     if shl_data["status"] == "good":
-        return redirect(shl_data["data"]["link_redirect"])
+        return redirect(shl_data["data"]["link_redirects_to"])
 
     else:
         return render_template("notfound.html", link_id=link_id)
