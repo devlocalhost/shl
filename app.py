@@ -11,13 +11,21 @@ import pytz
 
 app = Flask("-- shl --")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+# the above line was added because i plan to use this app behind a proxy
+# you can remove it if you are not behind a proxy
 
 JSON_FILES_PATH = os.environ.get("JSON_FILES_PATH", "links/")
+# the details for a sh link are and will be stored in this path
 BASE_URL = os.environ.get("BASE_URL")
+# this is the base url of the app. if running locally, set it to 
+# your local ip and port
 
 if not os.path.exists(JSON_FILES_PATH):
     os.makedirs(os.path.abspath(JSON_FILES_PATH), exist_ok=True)
 
+# the thing below is nice if you re going to mess with the html/python
+# code for a while. with this, you dont have to restart gunicorn every
+# time a change has been made
 if os.environ.get("DEBUG_MODE") == "debug_reload":
     print("[SHL] Running in debug mode")
 
