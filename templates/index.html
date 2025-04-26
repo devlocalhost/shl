@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1 class="colored">shl</h1>
-    <p><a href="/">shl</a> - a easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
+    <p><a href="/">shl</a> - a easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript. Over {{ total_shlinks }} links shortened so far!</p>
 
     <h2>API</h2>
     <p>Want to integrate shl into your app? Check the API docs by clicking <a href="/api">here</a>.</p>
@@ -20,7 +20,7 @@
 
         <label for="search_query">Enter custom ID (optional)</label>
         <input type="text" id="link_id" name="link_id" placeholder="website">
-        
+
         <button type="submit">Generate</button>
     </form>
 
@@ -30,7 +30,7 @@
     <form action="/get">
         <label for="link_id">Enter shl ID</label>
         <input type="text" id="link_id" name="link_id" placeholder="website" required="">
-        
+
         <button type="submit">Search</button>
     </form>
 {% endblock %}

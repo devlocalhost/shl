@@ -141,7 +141,9 @@ def autod():
 
 @app.route("/")
 def main_route():
-    return render_template("index.html")
+    total_shlinks = len(os.listdir(JSON_FILES_PATH))
+
+    return render_template("index.html", total_shlinks=total_shlinks)
 
 
 @app.route("/get")
