@@ -14,10 +14,11 @@ app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 # the above line was added because i plan to use this app behind a proxy
 # you can remove it if you are not behind a proxy
 
+CHARACTERS = string.ascii_letters + string.digits
 JSON_FILES_PATH = os.environ.get("JSON_FILES_PATH", "links/")
 # the details for a sh link are and will be stored in this path
 BASE_URL = os.environ.get("BASE_URL")
-# this is the base url of the app. if running locally, set it to 
+# this is the base url of the app. if running locally, set it to
 # your local ip and port
 
 if not os.path.exists(JSON_FILES_PATH):
@@ -35,9 +36,22 @@ if os.environ.get("DEBUG_MODE") == "debug_reload":
 
 def generate_id():
     length = random.randint(2, 6)
-    characters = string.ascii_letters + string.digits
 
-    return "".join(random.choice(characters) for _ in range(length))
+    return "".join(random.choice(CHARACTERS) for _ in range(length))
+
+
+def is_valid_id(link_id):
+    valid_chars = 0
+    link_id_len = len(link_id)
+
+    if link_id_len > 6:
+        return False
+
+    for letter in link_id:
+        if letter in CHARACTERS:
+            valid_chars += 1
+
+    return True if valid_chars == link_id_len else False
 
 
 def get_link(link_id):
@@ -56,6 +70,15 @@ def get_link(link_id):
 
 def create_link(link_redirect, link_id=None):
     shl_id = link_id or generate_id()
+
+    if link_id:
+        if not is_valid_id(link_id):
+            return {
+                "status": "bad",
+                "data": {
+                    "error": f"id given '{link_id}' is not valid. id must contain only letters and numbers, and must not exceed the limit of 6 characters in total"
+                },
+            }
 
     while get_link(shl_id)["status"] == "good":
         shl_id = generate_id()
@@ -114,7 +137,7 @@ def redirect_route(link_id):
 
 @app.route("/api")
 def api_route():
-    return "main api route. docs? no html. json"
+    return render_template("api.html")
 
 
 @app.route("/api/get")
