@@ -56,7 +56,7 @@ def create_link(link_redirect, link_id=None):
         "link_created_timestamp": datetime.datetime.now(pytz.UTC).timestamp(),
         "link_id": shl_id,
         "link_redirects_to": link_redirect,
-        "link_shlink": f"{BASE_URL}/r/{shl_id}"
+        "link_shlink": f"{BASE_URL}/r/{shl_id}",
     }
 
     with open(f"{JSON_FILES_PATH}/{shl_id}.json", "w+", encoding="utf-8") as shl_link:
@@ -75,8 +75,8 @@ def get_route():
     link_id = request.args.get("link_id")
 
     shl_data = get_link(link_id)
-    
-    if shl_data['status'] == "good":
+
+    if shl_data["status"] == "good":
         return render_template("get.html", shl_data=shl_data, datetime=datetime)
 
     else:
@@ -87,9 +87,9 @@ def get_route():
 def create_route():
     link_id = request.args.get("link_id")
     link_redirect = request.args.get("link_redirect")
-    
+
     shl_data = create_link(link_redirect, link_id)
-    
+
     return render_template("create.html", shl_data=shl_data, datetime=datetime)
 
 
@@ -97,12 +97,12 @@ def create_route():
 def redirect_route(link_id):
     shl_data = get_link(link_id)
 
-    if shl_data['status'] == "good":
-        return redirect(shl_data['data']['link_redirect'])
+    if shl_data["status"] == "good":
+        return redirect(shl_data["data"]["link_redirect"])
 
     else:
         return render_template("notfound.html", link_id=link_id)
-    
+
 
 @app.route("/api")
 def api_route():
