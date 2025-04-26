@@ -4,7 +4,7 @@ import string
 import random
 import datetime
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, redirect, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 import pytz
@@ -76,7 +76,11 @@ def get_route():
 
     shl_data = get_link(link_id)
     
-    return render_template("get.html", shl_data=shl_data, datetime=datetime)
+    if shl_data['status'] == "good":
+        return render_template("get.html", shl_data=shl_data, datetime=datetime)
+
+    else:
+        return render_template("notfound.html", link_id=link_id)
 
 
 @app.route("/create")
@@ -87,6 +91,17 @@ def create_route():
     shl_data = create_link(link_redirect, link_id)
     
     return render_template("create.html", shl_data=shl_data, datetime=datetime)
+
+
+@app.route("/r/<link_id>")
+def redirect_route(link_id):
+    shl_data = get_link(link_id)
+
+    if shl_data['status'] == "good":
+        return redirect(shl_data['data']['link_redirect'])
+
+    else:
+        return render_template("notfound.html", link_id=link_id)
     
 
 @app.route("/api")
