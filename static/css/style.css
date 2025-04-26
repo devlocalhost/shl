@@ -39,6 +39,7 @@ code {
     background-color: var(--code-background);
     padding: 0 0.5em;
     border-radius: 5px;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
     font-weight: bold;
     font-size: 0.95em;
     display: inline-block;
