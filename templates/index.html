@@ -11,8 +11,8 @@
     <h2>Try it</h2>
     <p>Quickly generate a short link by entering just the URL. Or, if you want to remember it, set a custom ID.</p>
 
-    <form action="/api/create">
-        <label for="search_query">Enter URL</label>
+    <form action="/create">
+        <label for="link_redirect">Enter URL</label>
         <input type="url" id="link_redirect" name="link_redirect" placeholder="https://dev64.xyz" required="">
 
         <label for="search_query">Enter custom ID (optional)</label>
@@ -24,9 +24,8 @@
     <h2>Find a shl</h2>
     <p>Do you remember the ID of the link? Enter it here, and find details about it such as creation date, and where it redirects to.</p>
 
-    <form action="/api/get">
-        <label for="search_query">Enter shl ID</label>
-        
+    <form action="/get">
+        <label for="link_id">Enter shl ID</label>
         <input type="text" id="link_id" name="link_id" placeholder="website" required="">
         
         <button type="submit">Search</button>

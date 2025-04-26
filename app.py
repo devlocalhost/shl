@@ -7,10 +7,13 @@ import datetime
 from flask import Flask, render_template, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+import pytz
+
 app = Flask("-- shl --")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 
 JSON_FILES_PATH = os.environ.get("JSON_FILES_PATH", "links/")
+BASE_URL = os.environ.get("BASE_URL")
 
 if not os.path.exists(JSON_FILES_PATH):
     os.makedirs(os.path.abspath(JSON_FILES_PATH), exist_ok=True)
@@ -50,9 +53,10 @@ def create_link(link_redirect, link_id=None):
         shl_id = generate_id()
 
     data = {
-        "link_created_timestamp": datetime.datetime.now(datetime.UTC).timestamp(),
+        "link_created_timestamp": datetime.datetime.now(pytz.UTC).timestamp(),
         "link_id": shl_id,
-        "link_redirect": link_redirect,
+        "link_redirects_to": link_redirect,
+        "link_shlink": f"{BASE_URL}/r/{shl_id}"
     }
 
     with open(f"{JSON_FILES_PATH}/{shl_id}.json", "w+", encoding="utf-8") as shl_link:
@@ -65,6 +69,25 @@ def create_link(link_redirect, link_id=None):
 def main_route():
     return render_template("index.html")
 
+
+@app.route("/get")
+def get_route():
+    link_id = request.args.get("link_id")
+
+    shl_data = get_link(link_id)
+    
+    return render_template("get.html", shl_data=shl_data, datetime=datetime)
+
+
+@app.route("/create")
+def create_route():
+    link_id = request.args.get("link_id")
+    link_redirect = request.args.get("link_redirect")
+    
+    shl_data = create_link(link_redirect, link_id)
+    
+    return render_template("create.html", shl_data=shl_data, datetime=datetime)
+    
 
 @app.route("/api")
 def api_route():

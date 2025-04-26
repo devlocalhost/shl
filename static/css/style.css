@@ -5,6 +5,7 @@
     --text-color: #EEEEEE;
     --ul-ol-background-color: #3C3D37;
     --lists-background: #555D69;
+    --code-background: #000;
 }
 
 @font-face {
@@ -31,6 +32,18 @@ body {
     padding: 0 0.92em 3.64em;
     overflow-wrap: break-word;
 }
+
+code {
+    background-color: var(--code-background);
+    padding: 0 8px;
+    border-radius: 5px;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+    font-size: 0.95em;
+    font-weight: bold;
+    display: inline-block;
+    word-break: break-word;
+    white-space: pre-wrap;
+ }
 
 input {
     background-color: #171f0e;
