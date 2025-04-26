@@ -4,15 +4,27 @@ import string
 import random
 import datetime
 
-from flask import Flask, render_template, request, redirect, jsonify
-from werkzeug.middleware.proxy_fix import ProxyFix
+# these 3 imports are related to auto deployment
+# for more details, check the comments at lines ~105-110
+import hmac
+import secret
+import subprocess
 
 import pytz
+
+from flask import Flask, render_template, request, redirect, jsonify
+from werkzeug.middleware.proxy_fix import ProxyFix
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask("-- shl --")
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
 # the above line was added because i plan to use this app behind a proxy
 # you can remove it if you are not behind a proxy
+
+# this variable is related to auto deploymet. remove if not needed
+APP_SECRET_TOKEN = os.environ.get("APP_SECRET_TOKEN")
 
 CHARACTERS = string.ascii_letters + string.digits
 JSON_FILES_PATH = os.environ.get("JSON_FILES_PATH", "links/")
@@ -94,6 +106,35 @@ def create_link(link_redirect, link_id=None):
         json.dump(data, shl_link, indent=4)
 
     return get_link(shl_id)
+
+
+# you will probably not need this function and the /autod route,
+# unless you set up auto deployment manually by yourself, like im doing
+# if you are not, remove this function and the /autod route
+def verify_signature(secret_token, signature_header, payload_body):
+    if not signature_header:
+        return False
+
+    expected = (
+        "sha256="
+        + hmac.new(secret_token.encode(), payload_body, hashlib.sha256).hexdigest()
+    )
+
+    return hmac.compare_digest(expected, signature_header)
+
+
+@app.route("/autod", methods=["POST"])
+def autod():
+    signature = request.headers.get("X-Hub-Signature-256")
+    payload = request.get_data()
+
+    if verify_signature(APP_SECRET_TOKEN, signature, payload):
+        subprocess.Popen([os.path.abspath("re-deploy.sh")])
+
+        return "", 200
+
+    else:
+        return "", 403
 
 
 @app.route("/")
