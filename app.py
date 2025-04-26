@@ -32,6 +32,8 @@ JSON_FILES_PATH = os.environ.get("JSON_FILES_PATH", "links/")
 BASE_URL = os.environ.get("BASE_URL")
 # this is the base url of the app. if running locally, set it to
 # your local ip and port
+MIN_LENGTH_ID = os.environ.get("MIN_LENGTH_ID", 2)
+MAX_LENGTH_ID = os.environ.get("MAX_LENGTH_ID", 8)
 
 if not os.path.exists(JSON_FILES_PATH):
     os.makedirs(os.path.abspath(JSON_FILES_PATH), exist_ok=True)
@@ -47,7 +49,7 @@ if os.environ.get("DEBUG_MODE") == "debug_reload":
 
 
 def generate_id():
-    length = random.randint(2, 8)
+    length = random.randint(MIN_LENGTH_ID, MAX_LENGTH_ID)
 
     return "".join(random.choice(CHARACTERS) for _ in range(length))
 
@@ -56,7 +58,7 @@ def is_valid_id(link_id):
     valid_chars = 0
     link_id_len = len(link_id)
 
-    if link_id_len > 6:
+    if link_id_len > MAX_LENGTH_ID or link_id_len < MIN_LENGTH_ID:
         return False
 
     for letter in link_id:
@@ -88,7 +90,7 @@ def create_link(link_redirect, link_id=None):
             return {
                 "status": "bad",
                 "data": {
-                    "error": f"id given '{link_id}' is not valid. id must contain only letters and numbers, and must not exceed the limit of 6 characters in total"
+                    "error": f"id given '{link_id}' is not valid. id must contain only letters and numbers, and must not exceed the limit of {MAX_LENGTH_ID} characters, or be less than {MIN_LENGTH_ID} characters in total"
                 },
             }
 
