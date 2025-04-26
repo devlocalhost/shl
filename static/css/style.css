@@ -4,15 +4,7 @@
     --background-color: #181C14;
     --text-color: #EEEEEE;
     --ul-ol-background-color: #3C3D37;
-    --img-border-color: #343434;
-    --hr-color: var(--lists-background);
     --lists-background: #555D69;
-    /* --navbar-a-active: #575064; */
-    /* --navbar-a-hover: #6d647d; */
-    --navbar-background-color: #212121;
-    --code-background: #000;
-    --code-hover: #99c1f1;
-    --outline-color: #343434;
 }
 
 @font-face {
@@ -27,11 +19,6 @@
     src: url('https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@2.304/fonts/webfonts/JetBrainsMono-Italic.woff2') format('woff2');
     font-weight: normal;
     font-style: italic;
-}
-
-html {
-    overflow-x: hidden;
-    margin-right: calc(-1 * (100vw - 100%));
 }
 
 body {
@@ -56,16 +43,6 @@ input {
     color: #fff;
 }
 
-/* input[type=text], input[type=url] { */
-/*     background-color: #171f0e; */
-/*     width: 100%; */
-/*     margin: 10px 0; */
-/*     padding: 12px 20px; */
-/*     box-sizing: border-box; */
-/*     border: 2px solid #6e7065; */
-/*     border-radius: 4px; */
-/* } */
-
 button {
     background-color: #6e7065;
     color: white;
@@ -78,11 +55,11 @@ button {
     width: 100%;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2 {
     color: #e1e1e1;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2 {
     line-height: 1.2;
 }
 
@@ -92,22 +69,6 @@ h1 {
 
 h2 {
     font-size: 1.6em;
-}
-
-h3 {
-    font-size: 1.4em;
-}
-
-h4 {
-    font-size: 1.2em;
-}
-
-h5 {
-    font-size: 1.15em;
-}
-
-h6 {
-    font-size: 1.10em;
 }
 
 a {
@@ -124,13 +85,6 @@ a:hover {
 
 a {
     word-break: break-word;
-}
-
-hr {
-    border: none;
-    height: 4px;
-    border-radius: 5px;
-    background-color: var(--hr-color);
 }
 
 ul, ol, p, .navigation-top {
@@ -154,26 +108,6 @@ ol ol, ul ul, ol ul, ol p, ul p, li ul {
     background: var(--lists-background);
 }
 
-img {
-    display: block;
-    margin: 0 auto;
-    width: 97%;
-    border-radius: 15px;
-    border: 4px solid var(--img-border-color);
-}
-
-code {
-    background-color: var(--code-background);
-    padding: 0 8px;
-    border-radius: 5px;
-    font-family: 'JetBrains Mono', monospace, sans-serif;
-    font-size: 0.95em;
-    font-weight: bold;
-    display: inline-block;
-    word-break: break-word;
-    white-space: pre-wrap;
-}
-
 .navigation-top {
     display: flex;
     justify-content: space-between;
@@ -192,19 +126,6 @@ code {
 }
 
 .navigation-top span::first-letter {
-    color: var(--accent-color);
-}
-
-.backbtn:hover {
-    cursor: pointer;
-}
-
-.backbtn {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-}
-
-.backbtn::first-letter {
     color: var(--accent-color);
 }
 
