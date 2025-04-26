@@ -4,8 +4,8 @@ import string
 import random
 import datetime
 
-# these 3 imports are related to auto deployment
-# for more details, check the comments at lines ~105-110
+# these 3 imports are related to auto deployment. for more
+# details, check the comments near the verify_signature funcion
 import hmac
 import hashlib
 import subprocess
