@@ -7,7 +7,6 @@ import datetime
 # these 3 imports are related to auto deployment
 # for more details, check the comments at lines ~105-110
 import hmac
-import secret
 import subprocess
 
 import pytz
