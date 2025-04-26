@@ -47,7 +47,7 @@ if os.environ.get("DEBUG_MODE") == "debug_reload":
 
 
 def generate_id():
-    length = random.randint(2, 6)
+    length = random.randint(2, 8)
 
     return "".join(random.choice(CHARACTERS) for _ in range(length))
 
