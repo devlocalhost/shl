@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}
+    index - shl
+{% endblock %}
+
+{% block content %}
+    <h1 class="colored">shl</h1>
+    <p><a href="/">shl</a> - an easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
+
+    <h2>API usage</h2>
+    <p>Very simple, no API keys, or anything else. There are 2 endpoints, <code>/api/create</code> and <code>/api/get</code>.<br><br>The create endpoint requires the parameter <code>link_redirect</code>, which is the URL that will redirect the user. There is another, but optional argument: <code>link_id</code>. That is the ID of the sh link. If not defined, a random one of range 2 to 6 letters and numbers will be generated. If you define one, make sure it does not exceed the 6 characters limit. And, only letters and numbers are allowed.<br><br>The get endpoint requires only the parameter <code>link_id</code>. This endpoint returns basic information like the link it redirects to, creation date, etc.</p>
+
+    <h2>API responses example</h2>
+    <p>This is how a response of the get endpoint looks like:</p>
+    <code>{
+    "data": {
+        "error": "shl link with ID 'lu' was not found"
+    },
+    "status": "bad"
+}
+    </code>
+
+    <br>
+    <br>
+    
+    <code>{
+    "data": {
+        "link_created_timestamp": 1745669087.938688,
+        "link_id": "HPGc",
+        "link_redirects_to": "https://dev64.xyz",
+        "link_shlink": "http://192.168.1.77:5000/r/HPGc"
+    },
+    "status": "good"
+}</code>
+
+    <p>And this is how the response of the create endpoint looks like:</p>
+    <code>{
+    "data": {
+        "link_created_timestamp": 1745669162.01382,
+        "link_id": "WhzGCD",
+        "link_redirects_to": "https://google.com",
+        "link_shlink": "http://192.168.1.77:5000/r/WhzGCD"
+    },
+    "status": "good"
+}</code>
+
+    <h2>Code examples</h2>
+    <p>Below you will find some python examples. It should be similar or easy in other languages too.</p>
+
+    <p>Get result for ID:</p>
+    <code>import requests
+
+link_id = "lu"
+req = requests.get(f"https://shl.dev64.xyz/api/get?link_id={link_id}").json()
+
+print(req)</code>
+
+    <p>Create a shl link:</p>
+    <code>import requests
+
+link_id = "mylink"
+link_redirect = "https://example.com"
+
+req = requests.get(f"https://shl.dev64.xyz/api/create?link_redirect={link_redirect}&link_id={link_id}").json()
+
+print(req)</code>
+{% endblock %}
