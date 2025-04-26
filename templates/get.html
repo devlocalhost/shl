@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    get - shl
+{% endblock %}
+
+{% block content %}
+    <h1 class="colored">shl</h1>
+    <p><a href="/">shl</a> - an easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
+
+    <h2>Data for shl link</h2>
+    <ul>
+        <li>Link ID: <code>{{ shl_data['data']['link_id'] }}</code></li>
+        <li>Redirects to: <a href="{{ shl_data['data']['link_redirects_to'] }}">{{ shl_data['data']['link_redirects_to'] }}</a></li>
+        <li>And was created at: {{ datetime.datetime.fromtimestamp(shl_data['data']['link_created_timestamp'], datetime.UTC).strftime("%A, %B %d %Y - %I:%M:%S %p %Z (%z)") }}</li>
+    </ul>
+{% endblock %}
