@@ -182,7 +182,7 @@ def redirect_route(link_id):
 
 @app.route("/api")
 def api_route():
-    return render_template("api.html")
+    return render_template("api.html", MIN_LENGTH_ID=MIN_LENGTH_ID, MAX_LENGTH_ID=MAX_LENGTH_ID)
 
 
 @app.route("/api/get")

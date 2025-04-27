@@ -9,7 +9,7 @@
     <p><a href="/">shl</a> - a easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
 
     <h2>API usage</h2>
-    <p>Very simple, no API keys, or anything else. There are 2 endpoints, <code>/api/create</code> and <code>/api/get</code>.<br><br>The create endpoint requires the parameter <code>link_redirect</code>, which is the URL that will redirect the user. There is another, but optional argument: <code>link_id</code>. That is the ID of the sh link. If not defined, a random one of range 2 to 6 letters and numbers will be generated. If you define one, make sure it does not exceed the 6 characters limit. And, only letters and numbers are allowed.<br><br>The get endpoint requires only the parameter <code>link_id</code>. This endpoint returns basic information like the link it redirects to, creation date, etc.</p>
+    <p>Very simple, no API keys, or anything else. There are 2 endpoints, <code>/api/create</code> and <code>/api/get</code>.<br><br>The create endpoint requires the parameter <code>link_redirect</code>, which is the URL that will redirect the user. There is another, but optional argument: <code>link_id</code>. That is the ID of the sh link. If not defined, a random one of range {{ MIN_LENGTH_ID }} to {{ MAX_LENGTH_ID }} letters and numbers will be generated. If you define one, make sure it is within the limits defined above. And, only letters and numbers are allowed.<br><br>The get endpoint requires only the parameter <code>link_id</code>. This endpoint returns basic information like the link it redirects to, creation date, etc.</p>
 
     <h2>API responses example</h2>
     <p>This is how a response of the get endpoint looks like:</p>
@@ -23,7 +23,7 @@
 
     <br>
     <br>
-    
+
     <code>{
     "data": {
         "link_created_timestamp": 1745669087.938688,
