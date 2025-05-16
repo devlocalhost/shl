@@ -75,7 +75,7 @@ button {
 
 button:hover {
     background-color: var(--accent-color);
-    transform: translateY(-2px);
+    transform: scale(0.96);
 }
 
 h1, h2 {
