@@ -73,7 +73,7 @@ button {
     transition: background-color 0.3s, transform 0.2s;
 }
 
-button:hover {
+button:active {
     background-color: var(--accent-color);
     transform: scale(0.96);
 }
