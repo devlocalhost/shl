@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1 class="colored">shl</h1>
-    <p><a href="/">shl</a> - a easy to use, minimal, and fast url shortener. no bullshitting, no trackers, no ads, no javascript.</p>
+    <p><a href="/">shl</a> - A easy to use, minimal, and fast url shortener. no trackers, no ads, no javascript, and bloat-free..</p>
 
     <h2>API usage</h2>
     <p>Very simple, no API keys, or anything else. There are 2 endpoints, <code>/api/create</code> and <code>/api/get</code>.<br><br>The create endpoint requires the parameter <code>link_redirect</code>, which is the URL that will redirect the user. There is another, but optional argument: <code>link_id</code>. That is the ID of the sh link. If not defined, a random one of range {{ MIN_LENGTH_ID }} to {{ MAX_LENGTH_ID }} letters and numbers will be generated. If you define one, make sure it is within the limits defined above. And, only letters and numbers are allowed.<br><br>The get endpoint requires only the parameter <code>link_id</code>. This endpoint returns basic information like the link it redirects to, creation date, etc.</p>
