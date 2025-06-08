@@ -65,7 +65,7 @@ def is_valid_id(link_id):
         if letter in CHARACTERS:
             valid_chars += 1
 
-    return True if valid_chars == link_id_len else False
+    return valid_chars == link_id_len
 
 
 def get_link(link_id):
@@ -135,8 +135,7 @@ def autod():
 
         return "", 200
 
-    else:
-        return "", 403
+    return "", 403
 
 
 @app.route("/")
@@ -155,8 +154,7 @@ def get_route():
     if shl_data["status"] == "good":
         return render_template("get.html", shl_data=shl_data, datetime=datetime)
 
-    else:
-        return render_template("notfound.html", link_id=link_id)
+    return render_template("notfound.html", link_id=link_id)
 
 
 @app.route("/create")
@@ -176,13 +174,14 @@ def redirect_route(link_id):
     if shl_data["status"] == "good":
         return redirect(shl_data["data"]["link_redirects_to"])
 
-    else:
-        return render_template("notfound.html", link_id=link_id)
+    return render_template("notfound.html", link_id=link_id)
 
 
 @app.route("/api")
 def api_route():
-    return render_template("api.html", MIN_LENGTH_ID=MIN_LENGTH_ID, MAX_LENGTH_ID=MAX_LENGTH_ID)
+    return render_template(
+        "api.html", MIN_LENGTH_ID=MIN_LENGTH_ID, MAX_LENGTH_ID=MAX_LENGTH_ID
+    )
 
 
 @app.route("/api/get")
@@ -206,5 +205,4 @@ def api_create_route():
     if link_id:
         return jsonify(create_link(link_redirect, link_id))
 
-    else:
-        return jsonify(create_link(link_redirect))
+    return jsonify(create_link(link_redirect))
