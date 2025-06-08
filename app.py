@@ -16,6 +16,9 @@ from flask import Flask, render_template, request, redirect, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 from dotenv import load_dotenv
 
+# this import can be removed. it is related to the "/sj" route below.
+import status
+
 load_dotenv()
 
 app = Flask("-- shl --")
@@ -41,7 +44,7 @@ if not os.path.exists(JSON_FILES_PATH):
 # the thing below is nice if you re going to mess with the html/python
 # code for a while. with this, you dont have to restart gunicorn every
 # time a change has been made
-if os.environ.get("DEBUG_MODE") == "debug_reload":
+if os.environ.get("WEBSITE_MODE") == "debug_reload":
     print("[SHL] Running in debug mode")
 
     app.config["DEBUG"] = True
@@ -136,6 +139,14 @@ def autod():
         return "", 200
 
     return "", 403
+
+
+# this route can be safely removed. it does not affect the code.
+# the reason i added this is so i can easily see the status
+# of my websites
+@app.route("/sj")
+def status_json():
+    return status.get_status("shl")
 
 
 @app.route("/")
